@@ -6,8 +6,8 @@ import {displayValues, ColumnDisplay, ValueWithFilter, ValueFilter} from './tran
 import data from './data';
 
 class AppState {
-    data = {};
-    @observable filters: Array<Function> = [];
+    data: any[] = [];
+    @observable filters: {column: string, filter: Function}[] = [];
 
     constructor() {
         this.data = data;
@@ -15,7 +15,7 @@ class AppState {
 
     @computed get filtered() {
         let filtered = [].concat(this.data);
-        this.filters.forEach(filter => filtered = filter(filtered));
+        this.filters.forEach(filter => filtered = filter.filter(filtered));
 
         return filtered;
     }
@@ -43,7 +43,11 @@ class AppState {
     }
 
     @action filter(column: string, filter: ValueFilter) {
-        this.filters.push((filtered: any[]) => filtered.filter((item) => filter(item[column])));
+        this.filters.push({
+            column,
+            filter: (filtered: any[]) => filtered.filter((item) => filter(item[column]))
+        }
+        );
     }
 
     @action reset() {
@@ -52,6 +56,14 @@ class AppState {
 
     @action back() {
         this.filters.pop();
+    }
+
+    @action remove(column: string) {
+        this.filters = this.filters.filter(f => f.column !== column);
+    }
+
+    hasFilter(column: string) {
+        return this.filters.some(f => f.column === column);
     }
 }
 

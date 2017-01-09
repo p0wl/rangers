@@ -22,11 +22,15 @@ class Table extends React.Component<{appState: AppState}, {}> {
                             column={column}
                             displayValues={this.props.appState.displayValues(column)}
                             onClick={(filter) => this.props.appState.filter(column, filter)}
+                            onColumnClick={() => this.props.appState.remove(column)}
+                            filtered={this.props.appState.hasFilter(column)}
                         />
                     ))
                 }
 
                 <br /><br />
+                Showing { this.props.appState.filtered.length } / { this.props.appState.data.length } Entries
+                <br />
                 <button onClick={() => this.props.appState.back()}>Back</button>
                 <button onClick={() => this.props.appState.reset()}>Reset</button>
             </div>

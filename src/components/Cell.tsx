@@ -9,7 +9,7 @@ export interface CellProps {
 
 const Cell: React.StatelessComponent<CellProps> = (props) => {
     return (
-        <div className={classnames(rangesItem, rangesValue)} onClick={props.onClick} style={{flex: props.count}}>
+        <div className={classnames(rangesItem, rangesValue)} onClick={props.onClick} style={{flex: props.count}} title={`${props.count} Entries`}>
             {props.children}
         </div>
     );

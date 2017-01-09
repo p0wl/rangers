@@ -21,6 +21,10 @@
     background: #5CBF98;
 }
 
+.ranges__filtered-column {
+    font-weight: bold;
+}
+
 body {
     font-family: Helvetica;
     font-size: small;
