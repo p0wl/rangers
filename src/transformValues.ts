@@ -38,7 +38,7 @@ export function displayValues(allValues: any[]): ValueWithFilter[] {
 
 export function columnDisplay(values: any[]) {
     if (typeof values[0] === 'string') {
-        if (values.length > 25) {
+        if (values.length > 40) {
             return ColumnDisplay.STARTS_WITH;
         }
     }
