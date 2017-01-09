@@ -5,14 +5,6 @@ import {displayValues, ColumnDisplay, ValueWithFilter, ValueFilter} from './tran
 
 import data from './data';
 
-const initial = [
-  { 'name': 'Jones Thompson', 'isActive': true, 'favoriteFruit': 'banana' },
-  { 'name': 'Lewis Chang', 'isActive': false, 'favoriteFruit': 'strawberry' },
-  { 'name': 'Morrow Buck', 'isActive': false, 'favoriteFruit': 'strawberry' },
-  { 'name': 'Dana Fitzpatrick', 'isActive': true, 'favoriteFruit': 'apple' },
-  { 'name': 'Long Lucas', 'isActive': false, 'favoriteFruit': 'apple' }
-];
-
 class AppState {
     data = {};
     @observable filters: Array<Function> = [];

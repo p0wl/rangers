@@ -1,18 +1,16 @@
+import countBy from './countBy';
+
 export enum ColumnDisplay {
     EQUAL,
     STARTS_WITH,
     BETWEEN,
 }
 
-function unique(values: any[]): any[] {
-    const uniq = new Set(values);
-    return Array.from(uniq);
-}
-
 export type ValueFilter = (value: any) => boolean;
 
 export type ValueWithFilter = {
     value: any,
+    count: number,
     filter: ValueFilter
 };
 
@@ -23,14 +21,19 @@ export function displayValues(allValues: any[]): ValueWithFilter[] {
     const columnDisplayType = columnDisplay(allValues);
 
     if (columnDisplayType === ColumnDisplay.STARTS_WITH) {
-            const vals = allValues.reduce((mem, val) => { mem.push(val.charAt(0)); return mem; }, []);
-            return unique(vals).sort().map(val => (
-                { value: val, filter: startsWith(val) }
-            ));
+        const vals = allValues.reduce((mem, val) => { mem.push(val.charAt(0)); return mem; }, []);
+        const counted = countBy(vals);
+        return counted.map((val: ValueWithFilter) => {
+            val.filter = startsWith(val.value);
+            return val;
+        });
     }
-    return unique(allValues).sort().map(val => (
-        { value: val, filter: equalFilter(val) }
-    ));
+
+    const counted = countBy(allValues);
+    return counted.map((val: ValueWithFilter) => {
+        val.filter = equalFilter(val.value);
+        return val;
+    });
 }
 
 export function columnDisplay(values: any[]) {

@@ -19,7 +19,7 @@ const Row: React.StatelessComponent<RowProps> = (props) => {
         <div className={rangesRow}>
             <div className={classnames(rangesColumn, rangesItem)}>{props.column}</div>
             {props.displayValues.map((cell, i, vals) =>
-                <Cell key={i} count={vals.length} onClick={() => props.onClick(cell.filter)}>{cell.value.toString()}</Cell>
+                <Cell key={i} count={cell.count} onClick={() => props.onClick(cell.filter)}>{cell.value.toString()}</Cell>
             )}
         </div>
     );
