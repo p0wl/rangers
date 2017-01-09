@@ -36,9 +36,15 @@ export function displayValues(allValues: any[]): ValueWithFilter[] {
     });
 }
 
+function unique(values: any[]) {
+    const asSet = new Set(values);
+    return Array.from(asSet);
+}
+
 export function columnDisplay(values: any[]) {
     if (typeof values[0] === 'string') {
-        if (values.length > 40) {
+
+        if (unique(values).length > 20) {
             return ColumnDisplay.STARTS_WITH;
         }
     }
