@@ -7,7 +7,8 @@
     "lint": "tslint -c tslint.json '*/**/*.tsx'",
     "test": "jest",
     "dev": "NODE_ENV=development webpack-dev-server --hot",
-    "build": "NODE_ENV=production webpack"
+    "build": "NODE_ENV=production webpack",
+    "ghpages": "npm run build && cp index.html docs && cp -r dist docs"
   },
   "keywords": [],
   "author": "Paul Mölders",
