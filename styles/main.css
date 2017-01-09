@@ -1,0 +1,27 @@
+.ranges__row {
+    display: flex;
+    width: 100%;
+    overflow: hidden;
+}
+
+.ranges__item {
+    padding: 5px;
+    border: 1px solid #000000;
+}
+
+.ranges__column {
+    order: -1;
+    flex: 0 1 100px;
+    cursor: pointer;
+    background: #7CD6EB;
+}
+
+.ranges__value {
+    cursor: pointer;
+    background: #5CBF98;
+}
+
+body {
+    font-family: Helvetica;
+    font-size: small;
+}
