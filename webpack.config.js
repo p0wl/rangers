@@ -7,6 +7,7 @@ module.exports = {
             "./src/index.tsx"
         ],
         vendor: [
+            "classnames",
             "react",
             "react-dom",
             "mobx",
@@ -58,6 +59,11 @@ if (process.env.NODE_ENV === "production") {
     module.exports.plugins.push(
         new webpack.optimize.UglifyJsPlugin({ compress: { warnings: false } })
     );
+
+    module.exports.resolve.alias = {
+        "react": "react-lite",
+        "react-dom": "react-lite"
+    };
 } else {
     module.exports.entry.bundle.unshift("webpack/hot/only-dev-server", "webpack-dev-server/client?http://localhost:8080");
 }
