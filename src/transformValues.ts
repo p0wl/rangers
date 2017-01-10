@@ -25,6 +25,15 @@ export function displayValues(allValues: any[]): ValueWithFilter[] {
     if (columnDisplayType === ColumnDisplay.STARTS_WITH) {
         const vals = allValues.reduce((mem, val) => { mem.push(val.charAt(0)); return mem; }, []);
         const counted = countBy(vals);
+
+        const countUnreduced = countBy(allValues);
+        countUnreduced.forEach(element => {
+            const reduced = counted.find(i => i.value === element.value.charAt(0));
+            if (reduced.count === element.count) {
+                reduced.value = element.value;
+            }
+        });
+
         return counted.map((val: ValueWithFilter) => {
             val.filter = startsWith(val.value);
             return val;
