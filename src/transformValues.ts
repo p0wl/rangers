@@ -1,3 +1,4 @@
+import * as _ from 'lodash';
 import countBy from './countBy';
 
 export enum ColumnDisplay {
@@ -15,7 +16,8 @@ export type ValueWithFilter = {
 };
 
 const equalFilter = (selected: any) => (itemValue: any) => selected === itemValue;
-const startsWith = (selected: any) => (itemValue: any) => itemValue.startsWith(selected);
+const startsWith = (selected: any) => (itemValue: any) => selected === '' ? itemValue === selected : itemValue.startsWith(selected);
+const between = (lower: number, upper: number) => (itemValue: any) => _.inRange(itemValue, lower, upper);
 
 export function displayValues(allValues: any[]): ValueWithFilter[] {
     const columnDisplayType = columnDisplay(allValues);
@@ -29,7 +31,30 @@ export function displayValues(allValues: any[]): ValueWithFilter[] {
         });
     }
 
-    const counted = countBy(allValues);
+    if (columnDisplayType === ColumnDisplay.BETWEEN) {
+        const onlyOnes = unique(allValues);
+        const min = _.min(onlyOnes);
+        const max = _.max(onlyOnes);
+        const step = Math.floor((max - min) / 5) + (max - min) % 5;
+
+        const vals = [];
+        for (let lower = min; lower < max; lower = lower + step) {
+            const possibleUpper = lower + step - 1;
+            const upper = possibleUpper > max || max - possibleUpper === 1 ? max : possibleUpper;
+            vals.push({
+                value: `${lower} - ${upper}`,
+                count: allValues.filter(item => _.inRange(item, lower, upper + 1)).length,
+                filter: between(lower, upper + 1)
+            });
+        }
+        return vals;
+    }
+
+    let counted = countBy(allValues);
+
+    if (typeof counted[0].value === 'number') {
+        counted = _.sortBy(counted, item => item.value);
+    }
     return counted.map((val: ValueWithFilter) => {
         val.filter = equalFilter(val.value);
         return val;
@@ -43,9 +68,13 @@ function unique(values: any[]) {
 
 export function columnDisplay(values: any[]) {
     if (typeof values[0] === 'string') {
-
         if (unique(values).length > 20) {
             return ColumnDisplay.STARTS_WITH;
+        }
+    }
+    if (typeof values[0] === 'number') {
+        if (unique(values).length > 20) {
+            return ColumnDisplay.BETWEEN;
         }
     }
     return ColumnDisplay.EQUAL;

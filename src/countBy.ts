@@ -1,5 +1,3 @@
-
-
 export type Counted = {
     value: any,
     count: number,

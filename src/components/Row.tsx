@@ -20,8 +20,8 @@ const Row: React.StatelessComponent<RowProps> = (props) => {
     return (
         <div className={rangesRow}>
             <div className={classnames(rangesColumn, rangesItem, {[rangesFilteredColumn]: props.filtered})} onClick={() => props.onColumnClick()}>{props.column}</div>
-            {props.displayValues.map((cell, i, vals) =>
-                <Cell key={i} count={cell.count} onClick={() => props.onClick(cell.filter)}>{cell.value.toString()}</Cell>
+            {props.displayValues.map((cell, i) =>
+                <Cell key={i} count={cell.count} onClick={() => props.onClick(cell.filter)} value={cell.value.toString()} />
             )}
         </div>
     );
