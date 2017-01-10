@@ -1,11 +1,13 @@
-const fs = require('fs');
+const fs = require("fs");
 
-const data = require('./data.json');
+const data = require("./data.json");
 
 let cleaned = data.map(i => {
-    delete i.id;
+    // delete i.id;
     delete i.bornCountryCode;
     delete i.diedCountryCode;
+    delete i.motivation;
+    delete i.overallMotivation;
 
     if (i.born === "0000-00-00") {
         return null;
@@ -23,6 +25,6 @@ const data =
 ${serialized};
 
 export default data;
-`
+`;
 
-fs.writeFileSync('./src/data.ts', tostringed);
+fs.writeFileSync("./src/data.ts", tostringed);
