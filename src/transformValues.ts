@@ -1,5 +1,6 @@
 import * as _ from 'lodash';
 import countBy from './countBy';
+import unique from './unique';
 
 export enum ColumnDisplay {
     EQUAL,
@@ -68,11 +69,6 @@ export function displayValues(allValues: any[]): ValueWithFilter[] {
         val.filter = equalFilter(val.value);
         return val;
     });
-}
-
-function unique(values: any[]) {
-    const asSet = new Set(values);
-    return Array.from(asSet);
 }
 
 export function columnDisplay(values: any[]) {

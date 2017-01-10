@@ -6,4 +6,5 @@ export const ranges__column: string;
 export const rangesColumn: string;
 export const ranges__value: string;
 export const rangesValue: string;
+export const rangesValueSelected: string;
 export const rangesFilteredColumn: string;

@@ -21,9 +21,9 @@ class Table extends React.Component<{appState: AppState}, {}> {
                             key={j}
                             column={column}
                             displayValues={this.props.appState.displayValues(column)}
-                            onClick={(filter) => this.props.appState.filter(column, filter)}
                             onColumnClick={() => this.props.appState.remove(column)}
                             filtered={this.props.appState.hasFilter(column)}
+                            onFilter={(cells) => this.props.appState.filter(column, cells.map(cell => cell.filter))}
                         />
                     ))
                 }

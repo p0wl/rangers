@@ -19,6 +19,11 @@
 .ranges__value {
     cursor: pointer;
     background: #5CBF98;
+    user-select: none;
+}
+
+.ranges__value-selected {
+    background: #32996F;
 }
 
 .ranges__filtered-column {
