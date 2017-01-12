@@ -46,8 +46,7 @@ class AppState {
         this.filters.push({
             column,
             filter: (filtered: any[]) => filters.reduce((mem, filter) => mem.concat(filtered.filter((item) => filter(item[column]))), [])
-        }
-        );
+        });
     }
 
     @action reset() {

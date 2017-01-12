@@ -6,6 +6,7 @@ export enum ColumnDisplay {
     EQUAL,
     STARTS_WITH,
     BETWEEN,
+    IN_ARRAY,
 }
 
 export type ValueFilter = (value: any) => boolean;
@@ -19,6 +20,7 @@ export type ValueWithFilter = {
 const equalFilter = (selected: any) => (itemValue: any) => selected === itemValue;
 const startsWith = (selected: any) => (itemValue: any) => selected === '' ? itemValue === selected : itemValue.startsWith(selected);
 const between = (lower: number, upper: number) => (itemValue: any) => _.inRange(itemValue, lower, upper);
+const inArray = (items: any[]) => (itemValue: any) => { console.log('Checking if ', itemValue, 'in', items); return items.indexOf(itemValue) === -1; };
 
 export function displayValues(allValues: any[]): ValueWithFilter[] {
     const columnDisplayType = columnDisplay(allValues);
@@ -60,6 +62,17 @@ export function displayValues(allValues: any[]): ValueWithFilter[] {
         return vals;
     }
 
+    if (columnDisplayType === ColumnDisplay.IN_ARRAY) {
+        const flatten = _.flatten(allValues);
+        const counted = countBy(flatten);
+
+        return counted.map((val: ValueWithFilter) => {
+            console.log('->', val);
+            val.filter = inArray(val.value);
+            return val;
+        });
+    }
+
     let counted = countBy(allValues);
 
     if (typeof counted[0].value === 'number') {
@@ -71,7 +84,7 @@ export function displayValues(allValues: any[]): ValueWithFilter[] {
     });
 }
 
-export function columnDisplay(values: any[]) {
+function columnDisplay(values: any[]) {
     if (typeof values[0] === 'string') {
         if (unique(values).length > 20) {
             return ColumnDisplay.STARTS_WITH;
@@ -81,6 +94,10 @@ export function columnDisplay(values: any[]) {
         if (unique(values).length > 20) {
             return ColumnDisplay.BETWEEN;
         }
+    }
+
+    if (Array.isArray(values[0])) {
+        return ColumnDisplay.IN_ARRAY;
     }
     return ColumnDisplay.EQUAL;
 }

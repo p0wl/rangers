@@ -4,7 +4,7 @@ import {observer} from 'mobx-react';
 import * as classnames from 'classnames';
 
 import AppState from '../AppState';
-import {columnDisplay, ColumnDisplay} from '../transformValues';
+import {ColumnDisplay} from '../transformValues';
 import Row from './Row';
 import Cell from './Cell';
 
