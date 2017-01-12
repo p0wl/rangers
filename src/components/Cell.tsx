@@ -21,6 +21,9 @@ const Cell: React.StatelessComponent<CellProps> = (props) => {
             onMouseLeave={() => props.onMouseEnter()}
             onMouseDown={() => props.onMouseDown()}
             onMouseUp={() => props.onMouseUp()}
+            onTouchStart={() => props.onMouseDown()}
+            onTouchEnd={() => props.onMouseUp()}
+            onTouchMove={() => props.onMouseEnter()}
         >
             {props.value}
         </div>
