@@ -20,6 +20,7 @@
     cursor: pointer;
     background: #5CBF98;
     user-select: none;
+    transition: flex 500ms;
 }
 
 .ranges__value-selected {
