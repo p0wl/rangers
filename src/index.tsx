@@ -7,7 +7,9 @@ import DevTools from 'mobx-react-devtools';
 import Table from './components/Table';
 import AppState from './AppState';
 
-const appState =  new AppState();
+import data from './data';
+
+const appState =  new AppState(data);
 
 ReactDOM.render(<Table appState={appState} />, document.getElementById('main'));
 

@@ -3,13 +3,11 @@
 import {observable, computed, action, createTransformer, autorun} from 'mobx';
 import {displayValues, ColumnDisplay, ValueWithFilter, ValueFilter} from './transformValues';
 
-import data from './data';
-
 class AppState {
     data: any[] = [];
     @observable filters: {column: string, filter: Function}[] = [];
 
-    constructor() {
+    constructor(data: any[]) {
         this.data = data;
     }
 
