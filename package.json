@@ -26,8 +26,8 @@
     "tslint": "^4.0.1",
     "typescript": "^2.1.0",
     "typings-for-css-modules-loader": "^1.1.1",
-    "webpack": "^1.13.3",
-    "webpack-dev-server": "^1.16.2"
+    "webpack": "2.2.0",
+    "webpack-dev-server": "2.2.0"
   },
   "dependencies": {
     "@types/lodash": "^4.14.48",
