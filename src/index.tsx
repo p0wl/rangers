@@ -4,14 +4,9 @@ import {observable, computed} from 'mobx';
 import {observer} from 'mobx-react';
 import DevTools from 'mobx-react-devtools';
 
-import Table from './components/Table';
-import AppState from './AppState';
+import Router from './demo/Router';
 
-import data from './data';
-
-const appState =  new AppState(data);
-
-ReactDOM.render(<Table appState={appState} />, document.getElementById('main'));
+ReactDOM.render(<Router />, document.getElementById('main'));
 
 declare var module: any;
 if (module.hot) {

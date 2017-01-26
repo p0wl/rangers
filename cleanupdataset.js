@@ -27,4 +27,4 @@ ${serialized};
 export default data;
 `;
 
-fs.writeFileSync("./src/data.ts", tostringed);
+fs.writeFileSync("./src/datasets/nobelprizewinners.ts", tostringed);
